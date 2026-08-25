@@ -1,0 +1,46 @@
+========================================================================
+lsq_from_data  |  s2=0.19_s4=0.23/input.json
+  run at 2026-08-20 11:57:18
+  m=5  G=0.25  true s2=0.19  s4=0.23
+  nu4=1.000e-05  nu4_h=1.000e-04
+  snapshots: /home/zshang/dedalus3/HD_SW_alpha_spherical/only_h_small_G=0.25/vary_s2s4_G=0.25_nu4-h=1e-4/PINN_1923/s2=0.19_s4=0.23/snapshots
+  window: t=[10.0, inf]   edge_trim=8
+  [NOTE] this looks like a CLEAN run (no --noise, no --limb-weight) but the
+         degraded-data defaults are in use (cheb=20, svd=2). On clean data
+         prefer --cheb 30 --svd 0; cheb=20 gave residual 0.48 there vs 6.2e-3.
+  [--mask-poles 60] keeping |lat|<60 deg (|mu|<0.866); poleward data discarded.
+      AXIS 3 degradation test — models HMI's missing polar coverage.
+  [WARNING] t_win_max not set — if this run has a growth onset, the
+            blow-up region will corrupt the fit. Set it from postrun_analyze.
+========================================================================
+  [--ckpt] field='true' from los_ckpt/pinn_fields.h5
+      the checkpoint was made with: noise=0.0 seed=0 limb=? tstride=?
+  loaded N_t=380, N_mu=128, t in [10.5, 200.0]
+
+  [dt] NON-UNIFORM grid -> Fornberg weights on the actual sample times (4th-order on an arbitrary grid)
+  [--mask-poles 60] retained mu-columns: 86/111 = 77% of the fitted columns   (sphere area kept = 87%)
+      quote the COLUMN figure for 'how much data the fit lost'.
+
+  SVD spectrum u_theta: 1.0e+00 5.9e-10 7.0e-11 1.2e-11 1.1e-12
+
+  hyperviscosity term size (RMS, over the fitted mask):
+    equation           |hv|  |dt(field)|     ratio
+    (1) u_theta   9.040e-08    1.780e-06    5.08%
+    (2) u_phi     1.518e-07    8.144e-07   18.64%
+    (5) h         7.614e-07    9.335e-07   81.56%
+    (ratio >~1%: the term matters; dropping it biases s2/s4)
+
+  per-equation residual  |R(s_fit)| / |c0|   (0 = model explains data):
+    equation       residual
+    (1) u_theta       0.014
+    (2) u_phi         0.017
+    (5) h             0.055
+    all three high -> time-derivative / model-wide problem
+    only (5) high  -> continuity/h-specific problem
+
+========================================================================
+  RECOVERED (closed-form LSQ on the data; cheb=20, svd=2)
+    s2 = 0.189883   true 0.19   (0.06%)
+    s4 = 0.230319   true 0.23   (0.14%)
+    cond([c2,c4]) = 7.24   residual = 3.019e-02
+========================================================================

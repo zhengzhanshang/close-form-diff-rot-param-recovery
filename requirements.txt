@@ -1,0 +1,18 @@
+# Core analysis (lsq_from_data.py, los_inversion.py, refine_lsq.py,
+# select_settings.py, lsq_hfree.py, postrun_analyse.py, make_figures.py)
+numpy
+scipy
+h5py
+matplotlib
+sympy          # symbolic verification of the linearity result and Appendix B
+
+# Forward model (spherical-2d-hd-s2s4.py, evp_spherical_hd.py)
+# Install per the Dedalus v3 instructions -- it is not a plain pip package:
+#   https://dedalus-project.readthedocs.io
+# dedalus
+
+# Physics-informed network (PINN_s2s4_recovery.py) -- GPU only, Sect. 6.
+# Nothing else in the repository needs these.
+# deepxde
+# torch
+# wandb        # optional, run logging only

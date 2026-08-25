@@ -1,0 +1,52 @@
+========================================================================
+lsq_from_data  |  s2=0.19_s4=0.23/input.json
+  run at 2026-08-18 10:47:26
+  m=5  G=0.25  true s2=0.19  s4=0.23
+  nu4=1.000e-05  nu4_h=1.000e-04
+  snapshots: s2=0.19_s4=0.23/snapshots/
+  window: t=[10.0, inf]   edge_trim=8
+  [--noise 0.1] Gaussian noise added to real-space (phi,mu) fields
+      before the m-FFT, at 0.1x each field's RMS, seed=4.
+      AXIS 3 degradation test — broadband phi noise, FFT-then-SVD/cheb denoise.
+  [--limb-weight best] centre-to-limb sensitivity at B0=0, floor=0.1
+      h (vertical, w=dh/dt): noise x 1/cos(lat), growing poleward, capped at 10.0x
+      u_theta,u_phi (horizontal): uniform — full sensitivity reachable at every latitude via the limb
+  [--mask-poles 60] keeping |lat|<60 deg (|mu|<0.866); poleward data discarded.
+      AXIS 3 degradation test — models HMI's missing polar coverage.
+  [WARNING] t_win_max not set — if this run has a growth onset, the
+            blow-up region will corrupt the fit. Set it from postrun_analyze.
+========================================================================
+  loaded N_t=380, N_mu=128, t in [10.5, 200.0]
+
+  [--mask-poles 60] retained mu-columns: 86/111 = 77% of the fitted columns   (sphere area kept = 87%)
+      quote the COLUMN figure for 'how much data the fit lost'.
+
+  SVD spectrum u_theta: 1.0e+00 2.2e-03 2.1e-03 2.1e-03 2.1e-03
+
+  setting                    s2    err%          s4    err%    cond     resid   eq-disag
+  cheb=20  svd=0       +0.19122   0.64%    +0.22611   1.69%    7.23 5.888e-01  4.789e-03
+  cheb=20  svd=2       +0.19010   0.05%    +0.23014   0.06%    7.24 1.789e-01  8.583e-03
+  cheb=20  svd=3       +0.19009   0.05%    +0.23017   0.08%    7.23 2.526e-01  9.005e-03
+  cheb=20  svd=4       +0.19008   0.04%    +0.23020   0.09%    7.23 3.013e-01  9.349e-03
+  cheb=30  svd=0       +0.18983   0.09%    +0.23081   0.35%    7.23 9.699e-01  2.781e-02
+  cheb=30  svd=2       +0.18901   0.52%    +0.23389   1.69%    7.24 6.877e-01  2.453e-02
+  cheb=30  svd=3       +0.18899   0.53%    +0.23395   1.72%    7.23 7.221e-01  2.460e-02
+  cheb=30  svd=4       +0.18915   0.45%    +0.23341   1.48%    7.23 8.527e-01  2.159e-02
+  cheb=40  svd=0       +0.19612   3.22%    +0.20866   9.28%    7.23 9.967e-01  1.156e-01
+  cheb=40  svd=2       +0.19016   0.08%    +0.23016   0.07%    7.24 8.684e-01  3.360e-03
+  cheb=40  svd=3       +0.19014   0.07%    +0.23022   0.09%    7.23 9.270e-01  3.000e-03
+  cheb=40  svd=4       +0.19058   0.30%    +0.22878   0.53%    7.23 9.724e-01  1.276e-02
+
+========================================================================
+  TRUTH-FREE PICK (eq-consistency): cheb_trunc=40, svd_rank=3
+    s2 = 0.190142  (true 0.19,  0.07%)
+    s4 = 0.230216  (true 0.23,  0.09%)
+    eq-disagreement = 3.000e-03   (no true value was used to choose this)
+------------------------------------------------------------------------
+  truth-INFORMED BEST (VALIDATION ONLY — needs the answer, so it does
+  NOT exist on solar data; also a minimum over 12 noisy estimates,
+  which flatters itself more as noise rises): cheb=20, svd=2
+    s2 = 0.190103  (0.05%)   s4 = 0.230135  (0.06%)
+  VERDICT: different setting; truth-free costs +0.02pp on s2, +0.03pp on s4.
+  Small cost => the rule is usable on solar data. Large cost => it is not.
+========================================================================

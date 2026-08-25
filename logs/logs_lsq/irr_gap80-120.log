@@ -1,0 +1,50 @@
+========================================================================
+lsq_from_data  |  s2=0.19_s4=0.23/input.json
+  run at 2026-08-18 15:58:24
+  m=5  G=0.25  true s2=0.19  s4=0.23
+  nu4=1.000e-05  nu4_h=1.000e-04
+  snapshots: s2=0.19_s4=0.23/snapshots/
+  window: t=[10.0, inf]   edge_trim=8
+  [--noise 0.1] Gaussian noise added to real-space (phi,mu) fields
+      before the m-FFT, at 0.1x each field's RMS, seed=0.
+      AXIS 3 degradation test — broadband phi noise, FFT-then-SVD/cheb denoise.
+  [--limb-weight best] centre-to-limb sensitivity at B0=0, floor=0.1
+      h (vertical, w=dh/dt): noise x 1/cos(lat), growing poleward, capped at 10.0x
+      u_theta,u_phi (horizontal): uniform — full sensitivity reachable at every latitude via the limb
+  [--mask-poles 60] keeping |lat|<60 deg (|mu|<0.866); poleward data discarded.
+      AXIS 3 degradation test — models HMI's missing polar coverage.
+  [WARNING] t_win_max not set — if this run has a growth onset, the
+            blow-up region will corrupt the fit. Set it from postrun_analyze.
+========================================================================
+  [--gap 80 120] removed a contiguous block: 79 snapshots
+      time grid is now NON-UNIFORM: dt min/median/max = 0.500 / 0.500 / 40.000  (spread 80.0x)
+      -> the fixed-dt 4th-order stencil is INVALID here; --nonuniform-dt=auto governs what is used instead
+  loaded N_t=301, N_mu=128, t in [10.5, 200.0]
+
+  [dt] NON-UNIFORM grid -> Fornberg weights on the actual sample times (4th-order on an arbitrary grid)
+  [--mask-poles 60] retained mu-columns: 86/111 = 77% of the fitted columns   (sphere area kept = 87%)
+      quote the COLUMN figure for 'how much data the fit lost'.
+
+  SVD spectrum u_theta: 1.0e+00 2.0e-03 2.0e-03 2.0e-03 1.9e-03
+
+  hyperviscosity term size (RMS, over the fitted mask):
+    equation           |hv|  |dt(field)|     ratio
+    (1) u_theta   1.024e-07    2.003e-06    5.11%
+    (2) u_phi     1.708e-07    9.163e-07   18.64%
+    (5) h         9.134e-07    1.050e-06   86.96%
+    (ratio >~1%: the term matters; dropping it biases s2/s4)
+
+  per-equation residual  |R(s_fit)| / |c0|   (0 = model explains data):
+    equation       residual
+    (1) u_theta       0.039
+    (2) u_phi         0.022
+    (5) h             0.423
+    all three high -> time-derivative / model-wide problem
+    only (5) high  -> continuity/h-specific problem
+
+========================================================================
+  RECOVERED (closed-form LSQ on the data; cheb=20, svd=2)
+    s2 = 0.190594   true 0.19   (0.31%)
+    s4 = 0.228933   true 0.23   (0.46%)
+    cond([c2,c4]) = 7.24   residual = 2.243e-01
+========================================================================

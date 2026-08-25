@@ -1,0 +1,39 @@
+========================================================================
+lsq_from_data  |  test3_noise_0.03/input.json
+  run at 2026-08-17 15:18:17
+  m=5  G=0.25  true s2=0.19  s4=0.23
+  nu4=1.000e-05  nu4_h=1.000e-04
+  snapshots: /home/zshang/dedalus3/HD_SW_alpha_spherical/only_h_small_G=0.25/vary_s2s4_G=0.25_nu4-h=1e-4/PINN_1923/s2=0.19_s4=0.23/snapshots
+  window: t=[10.0, inf]   edge_trim=8
+  [--noise 0.03] Gaussian noise added to real-space (phi,mu) fields
+      before the m-FFT, at 0.03x each field's RMS, seed=0.
+      AXIS 3 degradation test — broadband phi noise, FFT-then-SVD/cheb denoise.
+  [--limb-weight best] centre-to-limb sensitivity at B0=0, floor=0.1
+      h (vertical, w=dh/dt): noise x 1/cos(lat), growing poleward, capped at 10.0x
+      u_theta,u_phi (horizontal): uniform — full sensitivity reachable at every latitude via the limb
+  [WARNING] t_win_max not set — if this run has a growth onset, the
+            blow-up region will corrupt the fit. Set it from postrun_analyze.
+========================================================================
+  loaded N_t=380, N_mu=128, t in [10.5, 200.0]
+
+  SVD spectrum u_theta: 1.0e+00 6.5e-04 6.4e-04 6.3e-04 6.3e-04
+
+  setting                    s2    err%          s4    err%    cond     resid
+  cheb=20  svd=0       +0.19498   2.62%    +0.21426   6.84%    7.17 9.917e-01
+  cheb=20  svd=2       +0.19846   4.45%    +0.20286  11.80%    7.18 9.288e-01
+  cheb=20  svd=3       +0.19903   4.75%    +0.20098  12.62%    7.18 9.636e-01
+  cheb=20  svd=4       +0.19899   4.73%    +0.20112  12.56%    7.18 9.693e-01
+  cheb=30  svd=0       +0.18559   2.32%    +0.24518   6.60%    7.17 9.998e-01
+  cheb=30  svd=2       +0.21385  12.55%    +0.15259  33.65%    7.18 9.978e-01
+  cheb=30  svd=3       +0.21637  13.88%    +0.14426  37.28%    7.18 9.987e-01
+  cheb=30  svd=4       +0.21364  12.44%    +0.15327  33.36%    7.18 9.992e-01
+  cheb=40  svd=0       +0.11433  39.83%    +0.47959 108.52%    7.17 1.000e+00
+  cheb=40  svd=2       +0.15315  19.39%    +0.35182  52.96%    7.18 9.990e-01
+  cheb=40  svd=3       +0.13581  28.52%    +0.40898  77.82%    7.18 9.998e-01
+  cheb=40  svd=4       +0.14904  21.56%    +0.36556  58.94%    7.18 9.999e-01
+
+========================================================================
+  BEST: cheb_trunc=30, svd_rank=0
+    s2 = 0.185586  (true 0.19,  2.32%)
+    s4 = 0.245185  (true 0.23,  6.60%)
+========================================================================
